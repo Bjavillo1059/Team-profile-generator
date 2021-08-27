@@ -20,10 +20,11 @@
 // add variables to require information from dependant documentation
 const fs = require('fs');
 const inq = require('inquirer');
-const Developer = require('./lib/Developer');
-const Designer = require('./lib/Designer');
+const Engineer = require('./lib/Engineer');
+const Developer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Designer = require('./lib/Intern');
 const Manager = require('./lib/Manager');
-const inquirer = require('inquirer');
 
 const employee = [];
 
@@ -34,23 +35,132 @@ function initializeApp() {
 }
 
 // function to creat information for adding members to the team
-function addMember() {
+function addManager() {
     // array listing of questions for team member summary information
-    inquirer.prompt ([
+    inq.prompt([
         {
             type: "input",
             name: "name",
-            message: "Enter a team member's name"
+            message: "Enter a Team member's name"
         },
         {
             type: "list",
             name: "role",
+            message: "Select a role for Team member",
             choices: [
-                "Developer",
-                "Designer",
+                "Engineer",
+                "Intern",
                 "Manager"
-            ],
-            message: "Select on of the following for the member's role"
-        }
+            ]
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Enter employee Id"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Enter Team member's email information"
+        },
     ])
+
+        .then(function ({ name, role, id, email }) {
+            let memberRole = "";
+            if (role === "Engineer") {
+                memberRole = "GitHub username info";
+            } else if (role === "Intern") {
+                memberRole = "school name info";
+            } else {
+                memberRole = "Enter Manager's office phone number"
+            }
+        })
+    {
+        type: "input",
+            name: "number",
+                message: "Enter Manager's office number"
+    },
+    .then(managerRole => {
+        const manager = new Manager(managerRole.name, managerRole.id, managerRole.email, managerRole.number) // needs to be declared with values
+        employee.push(manager) // makes employee an array of 1 manager object
+        askToAddMember();
+    })
+    .then(engineerRole => {
+        const engineer = new Engineer(engineerRole.name, engineerRole.id, engineerRole.email, engineerRole.gitHub)
+        employee.push(engineer) // makes employee an array of an engineer object
+        askToAddMember();
+    })
+    .then(internRole => {
+        const intern = new Intern(internRole.name, internRole.id, internRole.email)
+        employee.push(intern) // makes employee an array of an intern object
+        askToAddMember();
+    })
 }
+
+function askToAddMember() {
+    inq.prompt({
+        name: "userChoice",
+        type: "list",
+        message: "Would you like to add more members to your team?",
+        choices: [
+            "add an Intern",
+            "add an Engineer",
+            "create HTML"
+        ]
+    })
+        .then(memberRole => {
+            if (memberRole.userChoice === "add an Intern") {
+                addMembers();
+            } else if (memberRole.userChoice === "add an Engineer") {
+                addMembers()
+            } else {
+                console.log("exitProgram")
+            }
+        })
+}
+
+// function addMembers() {
+//     inq.prompt ([
+//         {
+//             type: "input",
+//             name: "name",
+//             message: "Enter a Manager's name"
+//         },
+//         {
+//             type: "input",
+//             name: "id",
+//             message: "Enter employee Id"
+//         },
+//         {
+//             type: "input",
+//             name: "email",
+//             message: "Enter Manager's email"
+//         },
+//         {
+//             type: "list",
+//             name: "role",
+//             choices: [
+//                 "Developer",
+//                 "Designer",
+//                 "Manager"
+//             ],
+//             message: "Select one of the following for the member's role"
+//         },
+//     ])
+//     .then(engineerRole => {
+//         const manager = new Engineer (engineerRole.name, engineerRole.id, engineerRole.email) 
+//         employee.push(engineer) // makes employee an array of an engineer object
+//         askToAddMember();        
+//     })    
+//     .then(internRole => {
+//         const manager = new Intern (internRole.name, internRole.id, internRole.email)
+//         employee.push(engineer) // makes employee an array of an engineer object
+//         askToAddMember();        
+//     })    
+// }
+
+addManager();
+addMembers();
+
+// add more members
+// 
