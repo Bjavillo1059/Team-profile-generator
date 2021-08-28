@@ -21,21 +21,19 @@
 const fs = require('fs');
 const inq = require('inquirer');
 const Engineer = require('./lib/Engineer');
-const Developer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const Designer = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
 const employee = [];
 
 // function to initialize application
 function initializeApp() {
-    buildHtml();
-    addEmployee();
+    // buildHtml();
+    addMembers();
 }
 
 // function to creat information for adding members to the team
-function addManager() {
+function addMembers() {
     // array listing of questions for team member summary information
     inq.prompt([
         {
@@ -64,7 +62,6 @@ function addManager() {
             message: "Enter Team member's email information"
         },
     ])
-
         .then(function ({ name, role, id, email }) {
             let memberRole = "";
             if (role === "Engineer") {
@@ -74,50 +71,78 @@ function addManager() {
             } else {
                 memberRole = "Enter Manager's office phone number"
             }
+            inq.prompt([{
+                type: "input",
+                name: "memberRole",
+                message: `Team member's ${memberRole}`
+            },
+            {
+                name: "userChoice",
+                type: "list",
+                message: "Would you like to add more members to your team?",
+                choices: [
+                    "yes",
+                    "no"
+                ]
+            },
+            ])
+                .then(function ({ memberRole, userChoice }) {
+                    let newMember;
+                    if (memberRole.userChoice === "Intern") {
+                        newMember = new Intern(name, id, email, memberRole)
+                        addMembers();
+                    } else if (memberRole.userChoice === "Engineer") {
+                        newMember = new Engineer(name, id, email, memberRole)
+                        addMembers();
+                    } else (memberRole.userChoice === "Manager") 
+                        newMember = new Manager(name, id, email, memberRole)
+                        addMembers();
+                    
+                    employee.push(newMember);
+                    addtoHtml(newMember)
+                    .then(function() {
+                        if (userChoice === "yes") {
+                            addMembers();
+                        } else 
+                            console.log("exitProgram")                        
+                    })
+                });
+
+function buildHtml() {
+    let basicHtml = ``
+
+}
+                    
+            // .then(function ({ memberRole, addNewMembers }) {
+            //     const newMember;
+            //     if (role === "Engineer") {
+            //         newMember = new Engineer(name, id, email, memberRole)
+            //     }
+            // })
         })
-    {
-        type: "input",
-            name: "number",
-                message: "Enter Manager's office number"
-    },
-    .then(managerRole => {
-        const manager = new Manager(managerRole.name, managerRole.id, managerRole.email, managerRole.number) // needs to be declared with values
-        employee.push(manager) // makes employee an array of 1 manager object
-        askToAddMember();
-    })
-    .then(engineerRole => {
-        const engineer = new Engineer(engineerRole.name, engineerRole.id, engineerRole.email, engineerRole.gitHub)
-        employee.push(engineer) // makes employee an array of an engineer object
-        askToAddMember();
-    })
-    .then(internRole => {
-        const intern = new Intern(internRole.name, internRole.id, internRole.email)
-        employee.push(intern) // makes employee an array of an intern object
-        askToAddMember();
-    })
+    // {
+    //     type: "input",
+    //         name: "number",
+    //             message: "Enter Manager's office number"
+    // },
+    // .then(managerRole => {
+    //     const manager = new Manager(managerRole.name, managerRole.id, managerRole.email, managerRole.number) // needs to be declared with values
+    //     employee.push(manager) // makes employee an array of 1 manager object
+    //     askToAddMember();
+    // })
+    //     .then(engineerRole => {
+    //         const engineer = new Engineer(engineerRole.name, engineerRole.id, engineerRole.email, engineerRole.gitHub)
+    //         employee.push(engineer) // makes employee an array of an engineer object
+    //         askToAddMember();
+    //     })
+    //     .then(internRole => {
+    //         const intern = new Intern(internRole.name, internRole.id, internRole.email)
+    //         employee.push(intern) // makes employee an array of an intern object
+    //         askToAddMember();
+    //     })
 }
 
-function askToAddMember() {
-    inq.prompt({
-        name: "userChoice",
-        type: "list",
-        message: "Would you like to add more members to your team?",
-        choices: [
-            "add an Intern",
-            "add an Engineer",
-            "create HTML"
-        ]
-    })
-        .then(memberRole => {
-            if (memberRole.userChoice === "add an Intern") {
-                addMembers();
-            } else if (memberRole.userChoice === "add an Engineer") {
-                addMembers()
-            } else {
-                console.log("exitProgram")
-            }
-        })
-}
+// }
 
 // function addMembers() {
 //     inq.prompt ([
@@ -159,8 +184,7 @@ function askToAddMember() {
 //     })    
 // }
 
-addManager();
-addMembers();
+initializeApp();
 
 // add more members
 // 

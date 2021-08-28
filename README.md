@@ -9,6 +9,13 @@ Because this application won’t be deployed, you’ll need to provide a link to
 
 ## Technology Used
 
+    - HTML
+    - JavaScript
+    - Node.js
+    - Inquirer npm
+    - Jest npm
+
 ## Contact Info
+please contact me at [brandonjavillo@gmail.com](brandonjavillo@gmail.com)
 
 ## Process of Operations

@@ -1,0 +1,125 @@
+:root {
+    --color1: bisque;
+    --color2: rgb(48, 39, 39);
+    --color3: rgb(201, 100, 50);
+    --color4: rgb(209, 178, 143);
+    --color5: rgb(109, 129, 82);
+    --color6: #7b1fb1;
+    --color7: rgb(65, 17, 75); 
+    --font-family: cursive;
+    --font-family-2: Arial;
+    --font-family-3: sans-serif;
+}
+
+li {
+    display: inline-block;
+    padding: 10px;
+}
+  
+body {
+    background-color: var(--color4);
+}
+
+header {
+    padding: 5px;
+    font-family: var(--font-family);
+    background-color: var(--color2);
+    color: var(--color3);
+}
+
+footer {
+    padding: 30px;
+    font-family: var(--font-family);
+    background-color: var(--color2);
+    color: var(--color3);
+}
+
+section {
+    padding: 20px;
+    font-family: var(--font-family);
+    color: var(--color2);
+}
+
+section img {
+    background-color: var(--color2);
+    border: dashed;
+    border-color: var(--color2);
+    display: block;
+    margin: 10px auto;
+    max-width: 50px;
+}
+
+#garden-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.navbar-links {
+    text-align: right;
+    flex: auto; 
+}
+
+.carousel-item {
+    height: 32rem;
+    background: var(--color2);
+    color: var(--color1);
+    position: relative;
+    background-position: bottom;
+    background-size: cover;
+   
+}
+
+.container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;            
+    padding-bottom: 50px;
+}
+
+.overlay-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0; 
+    top: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.6;
+}
+.project-info-container {
+    color: var(--color2);
+    position: relative;
+}
+
+ @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+@media screen and (max-width: 39.9375em){
+    header {
+        display: block;
+        
+    }
+
+    ul.menu{
+        background-color: white;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .top-bar{
+        display: block;
+        
+    }
+
+    ul.menu{
+        background-color: white;
+        justify-content: center;
+    }
+}
