@@ -1,3 +1,4 @@
+// set test for the Employee js and its corresponding functions
 const { it, expect } = require('@jest/globals');
 const Employee = require('../lib/Employee');
 

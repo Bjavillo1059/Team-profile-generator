@@ -1,3 +1,4 @@
+// set test for Manager js and its corresponding functions set
 const Manager = require("../lib/Manager");
 
 describe("Manager", () => {
