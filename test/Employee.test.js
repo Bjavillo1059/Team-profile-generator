@@ -27,9 +27,9 @@ describe ("inilization", () => {
     });
     
     it("should return employee rold with getRole function", () => {
-        let testRole = "Employee"
+        let testEmpRole = "Employee"
         const employee = new Employee ("Brandon", "1", "test@test.com")
-        expect(employee.getRole()).toEqual(testRole)
+        expect(employee.getRole()).toEqual(testEmpRole)
     })
 
     it("should return employee object information with Employee class", () => {
