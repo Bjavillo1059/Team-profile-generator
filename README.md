@@ -6,15 +6,25 @@ Team Profile Generator is a Node.js command-line application that takes in infor
 Because this application won’t be deployed, you’ll need to provide a link to a walkthrough video that demonstrates its functionality and all of the tests passing. You’ll need to submit a link to the video AND add it to the readme of your project.
 
 ## Instructional
-A screenshot for every individual team member questioning is posted below:
-    -   ![Engineer](./img/Engineer question snip.PNG)
-    <img src="./img/Engineer question snip.PNG" alt="snip of Eng"/>
+
+Screen shot of qeustions asked:
+
+### Engineer
+<img src="./img/Engineer question snip.PNG" alt="snip of Eng"/>
+
+### Intern
+<img src="./img/Intern question snip.PNG" alt="snip of Int"/>
+
+### Manager
+<img src="./img/Manager question snip.PNG" alt="snip of Man"/>
+
 
 ## Technology Used
 
     - HTML
     - JavaScript
-    - Bootstrap
+    - Bootstrap 5
+    - Jquery
     - Node.js
     - Inquirer npm
     - Jest npm
@@ -31,5 +41,20 @@ When the npm install is complete, the User will test the application for functio
     - Intern
     - Manager.
 Four total test suites with 15 total test will run when the User runs 'npm run test' function.
-When the test are complete, the User can initiate the application by inputting node Main.js in the intergrated terminal.
+When the tests are complete, the User can initiate the application by inputting node Main.js in the intergrated terminal.
+A basic HTML will be created for inidividual team members that are added to the team.
+A User will be presented with instructions to fill information for each team member:
+    - Enter a Team member's name
+    - Select a role for Team member
+    - Enter employee ID
+    - Enter Team member's email information.
+When a User makes a selection for the team member's role, specific information will be asked for that role:
+    - Engineer "will ask for the team member's GitHub username"
+    - Intern "will ask for the team member's school or institution name"
+    - Manager "will ask for the team member's office number".
+When the User is done with the list of instructions, the User will then be asked if another team member would like to be add.
+    - If the answer is yes, the User will go through another list of instructions
+    - If the answer is no, the User will exit the program and the information from the list of instructions will be added to the displayed HTML
+
+
  
