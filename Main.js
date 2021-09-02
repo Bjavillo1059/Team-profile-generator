@@ -45,29 +45,28 @@ function addMembers() {
     ])
         .then(function ({ name, role, id, email }) {
             let memberRole = "";
-            if (role === "Engineer") {
-                memberRole = "GitHub username info";
-            } else if (role === "Intern") {
+            if (role === "Intern") {
                 memberRole = "school name info";
+            } else if (role === "Engineer") {
+                memberRole = "GitHub username info";
             } else {
                 memberRole = "Enter Manager's office phone number"
             }
             inq.prompt([{
                 type: "input",
                 name: "memberRole",
-                message: `Team member's ${memberRole}`
+                message: `Please input team member's ${memberRole}`
             },
             {
                 name: "userChoice",
                 type: "list",
-                message: "Would you like to add more members to your team?",
                 choices: [
                     "yes",
                     "no"
-                ]
-            },
-            ])
-                .then(function ({ memberRole, userChoice }) {
+                ],
+                message: "Would you like to add more members to your team?"
+            }])        
+            .then(function ({ memberRole, userChoice }) {
                     let newMember;
                     if (memberRole.userChoice === "Intern") {
                         newMember = new Intern(name, id, email, memberRole)
@@ -75,109 +74,126 @@ function addMembers() {
                     } else if (memberRole.userChoice === "Engineer") {
                         newMember = new Engineer(name, id, email, memberRole)
                         addMembers();
-                    } else (memberRole.userChoice === "Manager") 
-                        newMember = new Manager(name, id, email, memberRole)
-                        addMembers();
-                    
+                    } else (memberRole.userChoice === "Manager")
+                    newMember = new Manager(name, id, email, memberRole)
+                    addMembers();
+
                     employee.push(newMember);
-                    addtoHtml(newMember)
-                    .then(function() {
-                        if (userChoice === "yes") {
-                            addMembers();
-                        } else 
-                            console.log("exitProgram")                        
-                    })
-                });
+                    addToHtml(newMember)
+                        .then(function () {
+                            if (userChoice === "yes") {
+                                addMembers();
+                            } else {
+                                console.log("exitProgram")
+                                writeHtml();
+                            }
+                        })
+            });
+    });                
+}
 
+buildHtml();
+
+// start building a basic html with Bootstrap and Jquery for the development team members
 function buildHtml() {
-    let basicHtml = `
+        const basicHtml = `
     <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" >
+
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <title>Team Profile Info</title>
+    </head>
+    <body>
+        <header class="jumbotron align-center">
+            <h2 class="profile-header">Development Team Profiles & Info Summary</h2>
+        </header>
     
-</body>
-</html>
-`
+        <section class="container"> 
+            <div class="row">
+                <div class="col-6"> </div> 
+            </div>
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>    
+    </body>
+    </html>
+`;
+
+                fs.writeFileSync("./displayed-html/devTeam.html", basicHtml, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                console.log("building development team html")
+
+                fs.appendFile("./displayed-html/devTeam.html", basicHtml, (err) => {
+                    if (err) {
+                        console.log(err);
+                    };
+                });
+                console.log("html written");
+            
 }
-                    
-            // .then(function ({ memberRole, addNewMembers }) {
-            //     const newMember;
-            //     if (role === "Engineer") {
-            //         newMember = new Engineer(name, id, email, memberRole)
-            //     }
-            // })
+
+// trying to add to basicHtml / not working need more time!
+function addToHtml(newTeamMember) {
+    return new Promise(function(resolve, reject) {
+        const name = newTeamMember.getName();
+        const role = newTeamMember.getRole();
+        const id = newTeamMember.getId();
+        const email = newTeamMember.getEmail();
+        let teamData = "";
+        if (role === "Intern") {
+            const school = newTeamMember.getEducation();
+            teamData = `
+            <div id="intCard" style="width: 20rem" class="card mx-auto">
+                <h4 id="intCardHead" class="card-header"></h4>
+                <h6>Intern: ${name}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: ${id}</li>
+                        <li class="list-group-item">Email: ${email}</li>
+                        <li class="list-group-item">School Name: ${school}</li>
+                    </ul>
+            </div>`
+        } else if (role === "Engineer") {
+            const gitHub = newTeamMember.getGitHub();
+            teamData = `
+            <div id="engCard" style="width: 20rem" class="card mx-auto">
+                <h4 id="engCardHead" class="card-header"></h4>
+                <h6>Engineer: ${name}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: ${id}</li>
+                        <li class="list-group-item">Email: ${email}</li>
+                         <li class="list-group-item">GitHub: ${gitHub}</li>       
+                    </ul>
+            </div>`
+        } else {
+            const offPhoneNum = newTeamMember.getOfficeNumber();
+            teamData = `
+            <div id="manCard" style="width: 20rem" class="card mx-auto">
+                <h4 id="manCardHead" class="card-header"></h4>
+                <h6>Manager: ${name}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: ${id}</li>
+                        <li class="list-group-item">Email: ${email}</li>
+                        <li class="list-group-item">Office Phone Number: ${offPhoneNum}</li>       
+                    </ul>
+            </div>`
+        }
+        fs.writeFileSync("./displayed-html/devTeam.html", basicHtml, (err) => {
+            if (err) {
+                return reject(err);
+            };
+            return resolve();
         })
-    // {
-    //     type: "input",
-    //         name: "number",
-    //             message: "Enter Manager's office number"
-    // },
-    // .then(managerRole => {
-    //     const manager = new Manager(managerRole.name, managerRole.id, managerRole.email, managerRole.number) // needs to be declared with values
-    //     employee.push(manager) // makes employee an array of 1 manager object
-    //     askToAddMember();
-    // })
-    //     .then(engineerRole => {
-    //         const engineer = new Engineer(engineerRole.name, engineerRole.id, engineerRole.email, engineerRole.gitHub)
-    //         employee.push(engineer) // makes employee an array of an engineer object
-    //         askToAddMember();
-    //     })
-    //     .then(internRole => {
-    //         const intern = new Intern(internRole.name, internRole.id, internRole.email)
-    //         employee.push(intern) // makes employee an array of an intern object
-    //         askToAddMember();
-    //     })
+    })
 }
-
-// }
-
-// function addMembers() {
-//     inq.prompt ([
-//         {
-//             type: "input",
-//             name: "name",
-//             message: "Enter a Manager's name"
-//         },
-//         {
-//             type: "input",
-//             name: "id",
-//             message: "Enter employee Id"
-//         },
-//         {
-//             type: "input",
-//             name: "email",
-//             message: "Enter Manager's email"
-//         },
-//         {
-//             type: "list",
-//             name: "role",
-//             choices: [
-//                 "Developer",
-//                 "Designer",
-//                 "Manager"
-//             ],
-//             message: "Select one of the following for the member's role"
-//         },
-//     ])
-//     .then(engineerRole => {
-//         const manager = new Engineer (engineerRole.name, engineerRole.id, engineerRole.email) 
-//         employee.push(engineer) // makes employee an array of an engineer object
-//         askToAddMember();        
-//     })    
-//     .then(internRole => {
-//         const manager = new Intern (internRole.name, internRole.id, internRole.email)
-//         employee.push(engineer) // makes employee an array of an engineer object
-//         askToAddMember();        
-//     })    
-// }
 
 initializeApp();
-
-// add more members
-// 
