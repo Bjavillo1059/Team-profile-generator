@@ -6,6 +6,9 @@ Team Profile Generator is a Node.js command-line application that takes in infor
 Because this application won’t be deployed, you’ll need to provide a link to a walkthrough video that demonstrates its functionality and all of the tests passing. You’ll need to submit a link to the video AND add it to the readme of your project.
 
 ## Instructional
+A screenshot for every individual team member questioning is posted below:
+    -   ![Engineer](./img/Engineer question snip.PNG)
+    <img src="./img/Engineer question snip.PNG" alt="snip of Eng"/>
 
 ## Technology Used
 
@@ -26,7 +29,7 @@ When the npm install is complete, the User will test the application for functio
     - Employee
     - Engineer
     - Intern
-    - Manager
-Four total test suites with 15 total test will run when the User runs 'npm run test' function
-When the test are complete, the User can initiate the application by inputting node Main.js
-    - 
+    - Manager.
+Four total test suites with 15 total test will run when the User runs 'npm run test' function.
+When the test are complete, the User can initiate the application by inputting node Main.js in the intergrated terminal.
+ 
