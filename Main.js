@@ -151,7 +151,7 @@ function addToHtml(newTeamMember) {
         const email = newTeamMember.getEmail();
         let teamData = "";
         if (role === "Intern") {
-            const school = newTeamMember.getEducation();
+            const school = newTeamMember.getSchool();
             teamData = `
             <div id="intCard" style="width: 20rem" class="card mx-auto">
                 <h4 id="intCardHead" class="card-header"></h4>

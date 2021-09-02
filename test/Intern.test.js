@@ -17,6 +17,6 @@ describe("Intern", () => {
     it("should return institution with the getEducation function", () => {
         const testEd = "UC Davis";
         const e = new Intern("NoobSauce", 3, "test@test.com", testEd);
-        expect(e.getEducation()).toEqual(testEd);
+        expect(e.getSchool()).toEqual(testEd);
     })
 });
