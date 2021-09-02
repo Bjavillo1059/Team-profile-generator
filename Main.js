@@ -102,8 +102,8 @@ function buildHtml() {
 <body>
     
 </body>
-</html>`
-
+</html>
+`
 }
                     
             // .then(function ({ memberRole, addNewMembers }) {
