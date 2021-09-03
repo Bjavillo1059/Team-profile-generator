@@ -27,48 +27,11 @@ header {
     color: var(--color3);
 }
 
-footer {
-    padding: 30px;
-    font-family: var(--font-family);
-    background-color: var(--color2);
-    color: var(--color3);
-}
 
 section {
     padding: 20px;
     font-family: var(--font-family);
     color: var(--color2);
-}
-
-section img {
-    background-color: var(--color2);
-    border: dashed;
-    border-color: var(--color2);
-    display: block;
-    margin: 10px auto;
-    max-width: 50px;
-}
-
-#garden-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-}
-
-.navbar-links {
-    text-align: right;
-    flex: auto; 
-}
-
-.carousel-item {
-    height: 32rem;
-    background: var(--color2);
-    color: var(--color1);
-    position: relative;
-    background-position: bottom;
-    background-size: cover;
-   
 }
 
 .container {
@@ -77,21 +40,6 @@ section img {
     left: 0;
     right: 0;            
     padding-bottom: 50px;
-}
-
-.overlay-image {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0; 
-    top: 0;
-    background-position: center;
-    background-size: cover;
-    opacity: 0.6;
-}
-.project-info-container {
-    color: var(--color2);
-    position: relative;
 }
 
  @media (min-width: 768px) {

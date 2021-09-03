@@ -7,6 +7,8 @@ const Manager = require('./lib/Manager');
 
 const employee = [];
 
+// const addNewMem = document.getElementById("addNewMem")  / cannot use this syntax, document is being created with Node so does not have access to the browser
+
 // function to initialize application
 function initializeApp() {
     // buildHtml();
@@ -65,8 +67,8 @@ function addMembers() {
                     "no"
                 ],
                 message: "Would you like to add more members to your team?"
-            }])        
-            .then(function ({ memberRole, userChoice }) {
+            }])
+                .then(function ({ memberRole, userChoice }) {
                     let newMember;
                     if (memberRole.userChoice === "Intern") {
                         newMember = new Intern(name, id, email, memberRole)
@@ -76,7 +78,7 @@ function addMembers() {
                         addMembers();
                     } else (memberRole.userChoice === "Manager")
                     newMember = new Manager(name, id, email, memberRole)
-                    addMembers();
+                    // addMembers();
 
                     employee.push(newMember);
                     addToHtml(newMember)
@@ -88,15 +90,15 @@ function addMembers() {
                                 writeHtml();
                             }
                         })
-            });
-    });                
+                });
+        });
 }
 
 buildHtml();
 
 // start building a basic html with Bootstrap and Jquery for the development team members
 function buildHtml() {
-        const basicHtml = `
+    const basicHtml = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -106,7 +108,7 @@ function buildHtml() {
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" >
 
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="./css/style.css">
 
         <title>Team Profile Info</title>
     </head>
@@ -117,34 +119,23 @@ function buildHtml() {
     
         <section class="container"> 
             <div class="row">
-                <div class="col-6"> </div> 
-            </div>
-        </section>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>    
-    </body>
-    </html>
+                <div class="col-6" id="addNewMem"> 
 `;
 
-                fs.writeFileSync("./displayed-html/devTeam.html", basicHtml, (err) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
-                console.log("building development team html")
+    // write html with fs, but html is not fully complete. / left open to use addtoHtml function
+    fs.writeFileSync("./displayed-html/devTeam.html", basicHtml, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+    console.log("building development team html")
 
-                fs.appendFile("./displayed-html/devTeam.html", basicHtml, (err) => {
-                    if (err) {
-                        console.log(err);
-                    };
-                });
-                console.log("html written");
-            
+
 }
 
 // trying to add to basicHtml / not working need more time!
 function addToHtml(newTeamMember) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         const name = newTeamMember.getName();
         const role = newTeamMember.getRole();
         const id = newTeamMember.getId();
@@ -153,47 +144,66 @@ function addToHtml(newTeamMember) {
         if (role === "Intern") {
             const school = newTeamMember.getSchool();
             teamData = `
-            <div id="intCard" style="width: 20rem" class="card mx-auto">
-                <h4 id="intCardHead" class="card-header"></h4>
-                <h6>Intern: ${name}</h6>
-                    <ul class="list-group">
+                        <div id="intCard" style="width: 20rem" class="card mx-auto">
+                        <h4 id="intCardHead" class="card-header"></h4>
+                        <h6>Intern: ${name}</h6>
+                        <ul class="list-group">
                         <li class="list-group-item">ID: ${id}</li>
                         <li class="list-group-item">Email: ${email}</li>
                         <li class="list-group-item">School Name: ${school}</li>
-                    </ul>
-            </div>`
+                        </ul>
+                        </div>`
         } else if (role === "Engineer") {
             const gitHub = newTeamMember.getGitHub();
             teamData = `
-            <div id="engCard" style="width: 20rem" class="card mx-auto">
-                <h4 id="engCardHead" class="card-header"></h4>
-                <h6>Engineer: ${name}</h6>
-                    <ul class="list-group">
+                        <div id="engCard" style="width: 20rem" class="card mx-auto">
+                        <h4 id="engCardHead" class="card-header"></h4>
+                        <h6>Engineer: ${name}</h6>
+                        <ul class="list-group">
                         <li class="list-group-item">ID: ${id}</li>
                         <li class="list-group-item">Email: ${email}</li>
-                         <li class="list-group-item">GitHub: ${gitHub}</li>       
-                    </ul>
-            </div>`
+                        <li class="list-group-item">GitHub: ${gitHub}</li>       
+                        </ul>
+                        </div>`
         } else {
             const offPhoneNum = newTeamMember.getOfficeNumber();
             teamData = `
-            <div id="manCard" style="width: 20rem" class="card mx-auto">
-                <h4 id="manCardHead" class="card-header"></h4>
-                <h6>Manager: ${name}</h6>
-                    <ul class="list-group">
+                        <div id="manCard" style="width: 20rem" class="card mx-auto">
+                        <h4 id="manCardHead" class="card-header"></h4>
+                        <h6>Manager: ${name}</h6>
+                        <ul class="list-group">
                         <li class="list-group-item">ID: ${id}</li>
                         <li class="list-group-item">Email: ${email}</li>
                         <li class="list-group-item">Office Phone Number: ${offPhoneNum}</li>       
-                    </ul>
-            </div>`
+                        </ul>
+                        </div>`
         }
-        fs.writeFileSync("./displayed-html/devTeam.html", basicHtml, (err) => {
+        fs.appendFile("./displayed-html/devTeam.html", teamData, (err) => {
             if (err) {
                 return reject(err);
             };
             return resolve();
         })
     })
+}
+
+
+function writeHtml() {
+    const basicHtml = `
+    </div> 
+            </div>
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>    
+    </body>
+    </html>`;
+
+    fs.appendFile("./displayed-html/devTeam.html", basicHtml, (err) => {
+        if (err) {
+            console.log(err);
+        };
+    });
+    console.log("html written");
 }
 
 initializeApp();
