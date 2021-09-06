@@ -52,9 +52,11 @@ When a User makes a selection for the team member's role, specific information w
     - Engineer "will ask for the team member's GitHub username"
     - Intern "will ask for the team member's school or institution name"
     - Manager "will ask for the team member's office number".
-When the User is done with the list of instructions, the User will then be asked if another team member would like to be add.
+When the User is done with the list of instructions, the User will then be asked if another team member would like to be added.
     - If the answer is yes, the User will go through another list of instructions
     - If the answer is no, the User will exit the program and the information from the list of instructions will be added to the displayed HTML
+When the User answers no, an HTML with the User input is created inside the displayed-info directory
+    - open devTeam.html in Live Server or Open in Default Browser to show User input
 
 
  

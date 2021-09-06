@@ -5,13 +5,13 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
-const employee = [];
+
 
 // const addNewMem = document.getElementById("addNewMem")  / cannot use this syntax, document is being created with Node so does not have access to the browser
 
 // function to initialize application
 function initializeApp() {
-    // buildHtml();
+    buildHtml();
     addMembers();
 }
 
@@ -56,7 +56,7 @@ function addMembers() {
             }
             inq.prompt([{
                 type: "input",
-                name: "memberRole",
+                name: "memberData",
                 message: `Please input team member's ${memberRole}`
             },
             {
@@ -68,19 +68,19 @@ function addMembers() {
                 ],
                 message: "Would you like to add more members to your team?"
             }])
-                .then(function ({ memberRole, userChoice }) {
-                    let newMember;
-                    if (memberRole.userChoice === "Intern") {
-                        newMember = new Intern(name, id, email, memberRole)
-                        addMembers();
-                    } else if (memberRole.userChoice === "Engineer") {
-                        newMember = new Engineer(name, id, email, memberRole)
-                        addMembers();
-                    } else (memberRole.userChoice === "Manager")
-                    newMember = new Manager(name, id, email, memberRole)
-                    // addMembers();
+                .then(function ({ memberData, userChoice }) {
 
-                    employee.push(newMember);
+                    let newMember;
+                    if (role === "Intern") {
+                        newMember = new Intern(name, id, email, memberData)
+
+                    } else if (role === "Engineer") {
+                        newMember = new Engineer(name, id, email, memberData)
+
+                    } else {
+                    newMember = new Manager(name, id, email, memberData)
+                    }                   
+                    
                     addToHtml(newMember)
                         .then(function () {
                             if (userChoice === "yes") {
@@ -94,9 +94,9 @@ function addMembers() {
         });
 }
 
-buildHtml();
 
-// start building a basic html with Bootstrap and Jquery for the development team members
+
+// start building a basic html with Bootstrap for the development team members
 function buildHtml() {
     const basicHtml = `
     <!DOCTYPE html>
@@ -118,7 +118,7 @@ function buildHtml() {
         </header>
     
         <section class="container"> 
-            <div class="row">
+            <div class="flex-row">
                 <div class="col-6" id="addNewMem"> 
 `;
 
