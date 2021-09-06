@@ -18,6 +18,9 @@ Screen shot of qeustions asked:
 ### Manager
 <img src="./img/Manager question snip.PNG" alt="snip of Man"/>
 
+### Step by Step Video
+[Demo Video](https://drive.google.com/file/d/14VNFkLdApppw3qnvKvJPlKBjLfaJ9kRh/view)
+
 
 ## Technology Used
 
