@@ -60,6 +60,8 @@ When the User is done with the list of instructions, the User will then be asked
     - If the answer is no, the User will exit the program and the information from the list of instructions will be added to the displayed HTML
 When the User answers no, an HTML with the User input is created inside the displayed-info directory
     - open devTeam.html in Live Server or Open in Default Browser to show User input
+### Displayed Browser After HTML is Written
+<img src="./img/display snip.PNG" alt="snip of html"/>
 
 
  
